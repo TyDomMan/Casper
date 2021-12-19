@@ -1,0 +1,230 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://PlayerAnimation/PlayerWalking-4.png" type="Texture" id=1]
+[ext_resource path="res://PlayerAnimation/PlayerIdle-1.png" type="Texture" id=2]
+[ext_resource path="res://PlayerAnimation/PlayerWalking-2.png" type="Texture" id=3]
+[ext_resource path="res://PlayerAnimation/PlayerIdle-2.png" type="Texture" id=4]
+[ext_resource path="res://PlayerAnimation/PlayerWalking-3.png" type="Texture" id=5]
+[ext_resource path="res://KinematicBody2D.gd" type="Script" id=6]
+[ext_resource path="res://Tiles/light.png" type="Texture" id=7]
+[ext_resource path="res://Tiles/TreePara/Trees_bitch-1.png" type="Texture" id=8]
+[ext_resource path="res://Tiles/TreePara/Trees_bitch-2.png" type="Texture" id=9]
+[ext_resource path="res://Tiles/TreePara/Trees_bitch-3.png" type="Texture" id=10]
+[ext_resource path="res://Tiles/TreePara/Trees_bitch-5.png" type="Texture" id=11]
+[ext_resource path="res://Tiles/TreePara/Trees_bitch-4.png" type="Texture" id=12]
+[ext_resource path="res://Sounds/Jump.wav" type="AudioStream" id=13]
+[ext_resource path="res://Scnes/Interface/Interface.tscn" type="PackedScene" id=14]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "Jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 5 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 10.0
+} ]
+
+[sub_resource type="ParticlesMaterial" id=2]
+lifetime_randomness = 0.36
+flag_disable_z = true
+spread = 24.0
+initial_velocity = 26.18
+angular_velocity = 12.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 0.85
+tangential_accel = 13.33
+damping = 19.09
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 4.0
+height = 2.0
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 6 )
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+position = Vector2( -2.38419e-07, -1.90735e-06 )
+rotation = -2.38419e-08
+scale = Vector2( 1.25, 1.25 )
+z_index = 4
+frames = SubResource( 1 )
+animation = "Walk"
+speed_scale = 1.2
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Particles2D" type="Particles2D" parent="Sprite"]
+pause_mode = 2
+position = Vector2( -1.6, 15.2 )
+rotation = -2.79253
+scale = Vector2( 0.56, 0.56 )
+z_index = -1
+lifetime = 0.5
+process_material = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="AudioController" type="Node" parent="Sprite"]
+
+[node name="PlayerJump" type="AudioStreamPlayer" parent="Sprite/AudioController"]
+stream = ExtResource( 13 )
+volume_db = -33.643
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 13.902 )
+scale = Vector2( 1.257, 1.261 )
+shape = SubResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( 0, 14 )
+rotation = -1.5708
+enabled = true
+collide_with_areas = true
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( -0.259009, 12.8011 )
+scale = Vector2( 0.0172098, 0.0180011 )
+z_index = 3
+z_as_relative = false
+texture = ExtResource( 7 )
+texture_scale = 4.61
+energy = 1.01
+mode = 2
+shadow_enabled = true
+shadow_buffer_size = 75
+shadow_gradient_length = 200.0
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+layer = -1
+offset = Vector2( 0, -75 )
+transform = Transform2D( 1, 0, 0, 1, 0, -75 )
+scroll_ignore_camera_zoom = true
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.1, 0.1 )
+motion_mirroring = Vector2( 336, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer5"]
+modulate = Color( 0.503906, 0.503906, 0.503906, 1 )
+scale = Vector2( 0.7, 1 )
+texture = ExtResource( 8 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 720, 360 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.3, 0.3 )
+motion_mirroring = Vector2( 336, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
+modulate = Color( 0.496094, 0.496094, 0.496094, 1 )
+position = Vector2( 0, 25 )
+scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 9 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 720, 360 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.5, 0.5 )
+motion_mirroring = Vector2( 336, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+scale = Vector2( 0.7, 1 )
+texture = ExtResource( 10 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 720, 360 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.7, 0.7 )
+motion_mirroring = Vector2( 336, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+modulate = Color( 0.492188, 0.492188, 0.492188, 1 )
+position = Vector2( 0, -2.5 )
+scale = Vector2( 0.7, 1 )
+texture = ExtResource( 12 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 720, 360 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.9, 0.9 )
+motion_mirroring = Vector2( 336, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+modulate = Color( 0.476563, 0.476563, 0.476563, 1 )
+scale = Vector2( 0.7, 1 )
+texture = ExtResource( 11 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 720, 360 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CanvasModulate" type="CanvasModulate" parent="ParallaxBackground"]
+color = Color( 0.447059, 0.447059, 0.447059, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color( 0.254902, 0.254902, 0.254902, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" parent="CanvasLayer" instance=ExtResource( 14 )]

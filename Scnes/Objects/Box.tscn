@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/Box.gd" type="Script" id=1]
+[ext_resource path="res://Tiles/Box.png" type="Texture" id=2]
+[ext_resource path="res://Tiles/light.png" type="Texture" id=3]
+[ext_resource path="res://Sounds/Jump.wav" type="AudioStream" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 15, 15 )
+
+[node name="Box" type="KinematicBody2D"]
+position = Vector2( 112, 128 )
+z_index = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+show_behind_parent = true
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 0.634 )
+scale = Vector2( 1.05, 0.99 )
+shape = SubResource( 1 )
+
+[node name="Light2D3" type="Light2D" parent="."]
+light_mask = 3
+scale = Vector2( 0.205078, 0.191406 )
+texture = ExtResource( 3 )
+mode = 2
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -21.204
+pitch_scale = 0.69
