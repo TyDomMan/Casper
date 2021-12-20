@@ -102,12 +102,12 @@ __meta__ = {
 [node name="Tween" type="Tween" parent="active_manager/Player/Camera2D"]
 
 [node name="Box" parent="active_manager" instance=ExtResource( 5 )]
-position = Vector2( 16.7513, 15.9558 )
+position = Vector2( 18, 16 )
 z_index = 5
 z_as_relative = false
 
 [node name="Fan" parent="active_manager" instance=ExtResource( 4 )]
-position = Vector2( 24, -40 )
+position = Vector2( 25, -38 )
 z_index = 1
 z_as_relative = false
 

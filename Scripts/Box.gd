@@ -25,6 +25,7 @@ func _physics_process(delta):
 	
 	#Going Left and Right and Idle
 	if active == true:
+		print(motion.y)
 		$Sprite.visible = true
 		$CollisionShape2D.disabled = false
 		$Light2D3.enabled = true
@@ -41,7 +42,6 @@ func _physics_process(delta):
 			rememberJumpTime()
 			if CanJumpNoGround == true:
 				motion.y = JUMP_HEIGHT
-				$Jump.play()
 				
 			if friction == true:
 				motion.x = lerp(motion.x, 0, 0.1)
@@ -58,7 +58,6 @@ func _physics_process(delta):
 			CanJumpNoGround = true
 			if jumpWasPressed == true:
 				motion.y = JUMP_HEIGHT
-				$Jump.play()
 		
 		if !is_on_floor():
 			coyoteTime()

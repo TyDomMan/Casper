@@ -84,7 +84,7 @@ script = ExtResource( 7 )
 
 [node name="Player" parent="active_manager" instance=ExtResource( 2 )]
 modulate = Color( 1, 1, 1, 0.78 )
-position = Vector2( 90.5155, 106.715 )
+position = Vector2( 80, 112 )
 z_index = 1
 
 [node name="Camera2D" type="Camera2D" parent="active_manager/Player"]
@@ -117,23 +117,23 @@ volume_db = -10.155
 
 [node name="Coins" type="Node" parent="active_manager"]
 
+[node name="Coin" parent="active_manager/Coins" instance=ExtResource( 11 )]
+position = Vector2( 88, 72 )
+
 [node name="Coin2" parent="active_manager/Coins" instance=ExtResource( 11 )]
-position = Vector2( 72.393, 74.6891 )
+position = Vector2( 72, 72 )
 
 [node name="Coin3" parent="active_manager/Coins" instance=ExtResource( 11 )]
-position = Vector2( 135.69, 105.946 )
+position = Vector2( 24, 104 )
 
 [node name="Coin4" parent="active_manager/Coins" instance=ExtResource( 11 )]
-position = Vector2( 121.218, 106.036 )
+position = Vector2( 40, 104 )
 
 [node name="Coin5" parent="active_manager/Coins" instance=ExtResource( 11 )]
-position = Vector2( 39.1523, 106.307 )
+position = Vector2( 120, 104 )
 
 [node name="Coin6" parent="active_manager/Coins" instance=ExtResource( 11 )]
-position = Vector2( 22.7307, 106.668 )
-
-[node name="Coin" parent="active_manager/Coins" instance=ExtResource( 11 )]
-position = Vector2( 88.9013, 74.3286 )
+position = Vector2( 136, 104 )
 
 [node name="Hud" type="CanvasLayer" parent="active_manager"]
 script = ExtResource( 14 )
@@ -155,8 +155,8 @@ __meta__ = {
 margin_left = 50.0
 margin_right = 57.0
 margin_bottom = 11.0
-custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 0.862745, 0.156863, 1 )
+custom_fonts/font = SubResource( 1 )
 text = "X"
 align = 2
 valign = 2
@@ -208,6 +208,9 @@ scale = Vector2( 0.28125, 0.285156 )
 texture = ExtResource( 5 )
 energy = 1.2
 mode = 2
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Light2D3" type="Light2D" parent="LightManager"]
 light_mask = 3
@@ -247,6 +250,9 @@ scale = Vector2( 0.28125, 0.285156 )
 texture = ExtResource( 5 )
 energy = 1.2
 mode = 2
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("RichTextLabel")
@@ -258,6 +264,7 @@ method_call_mode = 1
 anims/FLoat = SubResource( 3 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="AnimationPlayer"]
+modulate = Color( 4, 4, 4, 1 )
 margin_left = 179.354
 margin_top = 99.712
 margin_right = 206.354
@@ -277,3 +284,10 @@ amount = 6
 lifetime = 5.0
 process_material = SubResource( 7 )
 texture = ExtResource( 10 )
+
+[connection signal="coin_collected" from="active_manager/Coins/Coin" to="active_manager/Hud" method="_on_coin_collected"]
+[connection signal="coin_collected" from="active_manager/Coins/Coin2" to="active_manager/Hud" method="_on_coin_collected"]
+[connection signal="coin_collected" from="active_manager/Coins/Coin3" to="active_manager/Hud" method="_on_coin_collected"]
+[connection signal="coin_collected" from="active_manager/Coins/Coin4" to="active_manager/Hud" method="_on_coin_collected"]
+[connection signal="coin_collected" from="active_manager/Coins/Coin5" to="active_manager/Hud" method="_on_coin_collected"]
+[connection signal="coin_collected" from="active_manager/Coins/Coin6" to="active_manager/Hud" method="_on_coin_collected"]

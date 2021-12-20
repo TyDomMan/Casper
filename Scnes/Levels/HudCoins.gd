@@ -1,7 +1,10 @@
 extends CanvasLayer
 
-var coins = 0 
+var coins = 0
 
-func _ready():
+func _process(delta):
 	$CoinCollector/Coins.text = String(coins)
 	pass
+
+func _on_coin_collected():
+	coins = coins + 1

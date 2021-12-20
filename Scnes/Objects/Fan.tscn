@@ -20,9 +20,9 @@ animations = [ {
 "name": "Jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 7 ) ],
+"frames": [ ExtResource( 5 ), ExtResource( 4 ) ],
 "loop": true,
-"name": "Spin",
+"name": "Walk",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 1 ) ],
@@ -30,9 +30,9 @@ animations = [ {
 "name": "Idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ), ExtResource( 4 ) ],
+"frames": [ ExtResource( 6 ), ExtResource( 7 ) ],
 "loop": true,
-"name": "Walk",
+"name": "Spin",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 6 ) ],
@@ -71,6 +71,9 @@ texture_scale = 6.0
 shadow_enabled = true
 shadow_buffer_size = 75
 shadow_gradient_length = 200.0
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Spin" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )

@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+signal coin_collected
 
 onready var coin = $Coin
 onready var coincol = $CollisionPolygon2D
@@ -16,8 +17,8 @@ func _process(delta):
 	pass
 
 func _on_Area2D_body_entered(body):
-	emit_signal("coin_collected")
 	if body.get("TYPE") == ("Player"):
+		emit_signal("coin_collected")
 		cdis = cdis + 1
 		$Coin.play()
 		$Area2D/AnimationPlayer.set_current_animation("Collect")
@@ -30,6 +31,7 @@ func _on_Area2D_body_entered(body):
 		coinlight = true
 		
 	if body.get("TYPE") == ("Box"):
+		emit_signal("coin_collected")
 		cdis = cdis + 1
 		$Coin.play()
 		$Area2D/AnimationPlayer.set_current_animation("Collect")
@@ -42,6 +44,7 @@ func _on_Area2D_body_entered(body):
 		coinlight = true
 		
 	if body.get("TYPE") == ("Fan"):
+		emit_signal("coin_collected")
 		cdis = cdis + 1
 		$Coin.play()
 		$Area2D/AnimationPlayer.set_current_animation("Collect")

@@ -89,12 +89,15 @@ func _physics_process(delta):
 				$PlayerJump.stop()
 				$Spin.play()
 	elif active == false:
+		
+		motion = move_and_slide(motion, Vector2.UP/1.5)
 		move_and_slide(motion,UP)
 		motion.y = MAXY_SPEED
 		motion.x = lerp(motion.x, 0, 0.3)
 		$Sprite.play("Idle")
 		$Spin.stop()
 		$Light2D.enabled = false
+				
 	pass
 	pass
 

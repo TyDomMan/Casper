@@ -138,7 +138,7 @@ __meta__ = {
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Area2D"]
 frames = SubResource( 1 )
-frame = 5
+frame = 3
 speed_scale = 1.5
 playing = true
 

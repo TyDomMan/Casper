@@ -93,9 +93,6 @@ position = Vector2( 86, 56 )
 scale = Vector2( 0.220703, 0.20459 )
 z_index = 9
 texture = ExtResource( 4 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 39, 88.1094 )
