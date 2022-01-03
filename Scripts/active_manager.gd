@@ -1,63 +1,40 @@
 extends Node
 
-onready var camera :Camera2D = $Player/Camera2D
-onready var posses_area : Area2D = $Player/PossesArea
+onready var camera :Camera2D = $Player/Transition
+onready var possess_area : Area2D = $Player/Area2D
+onready var posfanetc : Area2D = $Player/Fanetc
 onready var switch = $Switch
+
+onready var currenthostpos = camera.get_parent().global_position
+onready var UI  = get_node("/root/Interface/Control")
 onready var Player = $Player
-onready var Box = $Box
-onready var Fan = $Fan
-
-func _ready():
-	posessnolerp(Player)
-	pass
-
+onready var Box = $Box.visible
+onready var Fan = $Fan.visible
+onready var Fanactive = get_node("/root/Globals").Fanactive
+onready var willlerp = true
 
 func _input(event):
-	
-	var temp_state = $Box.active
-	
-	if (($Player.position.x - $Box.position.x <= 40) && ($Player.position.x - $Box.position.x > -40)) && ($Player.position.y - $Box.position.y >= -40) && ($Player.position.y - $Box.position.y <= 40) && ($Player/Sprite.visible == true):
-		if Input.is_action_just_released("player_switch"):
-			$Box.active = $Player.active
-			$Fan.active = temp_state
-			$Player.active = temp_state
-			$Player.active = false
-			$Fan.active = false
-			posess(Box)
-			$Switch.play()
-	elif (($Player.position - $Box.position <= Vector2(1000,1000)) || ($Player.position - $Box.position >= Vector2(-1000,-1000))) && ($Player/Sprite.visible == false) && ($Box.active == true):
-		if Input.is_action_just_released("player_switch"):
-			$Player.active = $Box.active
-			$Fan.active = temp_state
-			$Box.active = temp_state
-			$Box.active = false
-			$Fan.active = false
-			posess(Player)
-			$Switch.play()
-	elif (($Player.position.x - $Fan.position.x <= 40) && ($Player.position.x - $Fan.position.x > -40)) && ($Player.position.y - $Fan.position.y >= -40) && ($Player.position.y - $Fan.position.y <= 40) && ($Player/Sprite.visible == true):
-		if Input.is_action_just_released("player_switch"):
-			$Fan.active = $Player.active
-			$Box.active = temp_state
-			$Player.active = temp_state
-			$Player.active = false
-			$Fan.active = true
-			posess(Fan)
-			$Switch.play()
-	elif (($Player.position - $Fan.position <= Vector2(1000,1000)) || ($Player.position - $Fan.position >= Vector2(-1000,-1000))) && ($Player/Sprite.visible == false) && ($Fan.active == true):
-		if Input.is_action_just_released("player_switch"):
-			$Player.active = $Fan.active
-			$Fan.active = temp_state
-			$Box.active = temp_state
-			$Box.active = false
-			$Fan.active = false
-			posessnolerp(Player)
-			$Player.global_position = $Fan.global_position + Vector2(-10,-10)
-			$Switch.play()
-			
+	#Player goes to original spot
+	if Input.is_action_just_pressed("player_switch") && possess_area.get_overlapping_bodies().size() > 0 && Player.active == true && willlerp == true:
+		posess(possess_area.get_overlapping_bodies()[0]) 
+		Player.active = false
+		willlerp = true
+	elif Input.is_action_just_pressed("player_switch") && Player.active == false && willlerp == true:
+		posess(Player)
+		Player.active = true
+		
+	#Player takes objects spot
+	elif Input.is_action_just_pressed("player_switch") && posfanetc.get_overlapping_bodies().size() > 0 && Player.active == true :
+		posessnolerp(posfanetc.get_overlapping_bodies()[0]) 
+		willlerp = false
+		Player.active = false
+	elif Input.is_action_just_pressed("player_switch") && Player.active == false && willlerp == false:
+		posessnolerp(Player)
+		Player.active = true
+		willlerp = true
 	pass
 
 func posess(host : Node2D):
-	
 	#Store Camera position
 	var current_host = camera.get_parent()
 	var camera_pos = camera.global_position
@@ -79,10 +56,10 @@ func posess(host : Node2D):
 	current_host.active = false
 	host.active = true
 	switch.play()
+	Globals.camera.shake(500,.2,500)
 pass
 
 func posessnolerp(host : Node2D):
-	
 	#Store Camera position
 	var current_host = camera.get_parent()
 	var camera_pos = camera.global_position
@@ -93,24 +70,13 @@ func posessnolerp(host : Node2D):
 	camera.set_owner(host)
 	
 	#setting location
-	camera.global_position = camera_pos
-	
-	#tweening
-	var Tweening : Tween = camera.get_node("Tween")
-	Tweening.remove_all()
-	Tweening.interpolate_property(camera, "position", camera.position, Vector2(), .01)
-	Tweening.start()
+	Player.global_position = current_host.global_position + Vector2(4,0)
 	
 	current_host.active = false
 	host.active = true
-#	switch.play()
+	switch.play()
+	Globals.camera.shake(300,.1,300)
 pass
 
 
-
-	#Fullscreen 
-func Fullscreen():
-	OS.window_fullscreen = !OS.window_fullscreen
-	
-	pass
 

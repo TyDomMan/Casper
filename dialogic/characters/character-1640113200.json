@@ -1,0 +1,24 @@
+{
+	"color": "#ff7f6d6d",
+	"description": "The Crow is the bitch who helps you along the way",
+	"display_name": "",
+	"display_name_bool": true,
+	"id": "character-1640113200.json",
+	"mirror_portraits": false,
+	"name": "Crow",
+	"nickname": "",
+	"nickname_bool": false,
+	"offset_x": 0,
+	"offset_y": 0,
+	"portraits": [
+		{
+			"name": "Default",
+			"path": "res://Tiles/Crow/tile000.png"
+		},
+		{
+			"name": "CrowTalking",
+			"path": "res://Tiles/Crow/tile001.png"
+		}
+	],
+	"scale": 100
+}

@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Transition.gd" type="Script" id=2]
+
+[node name="Transition" type="Camera2D"]
+position = Vector2( 0, -1 )
+z_index = 1
+current = true
+zoom = Vector2( 0.8, 0.8 )
+process_mode = 0
+limit_top = -20
+limit_bottom = 20
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+offset_v = -1.0
+drag_margin_left = 0.05
+drag_margin_top = 0.05
+drag_margin_right = 0.05
+drag_margin_bottom = 0.05
+script = ExtResource( 2 )
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

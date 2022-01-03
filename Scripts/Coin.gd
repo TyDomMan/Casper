@@ -5,10 +5,10 @@ signal coin_collected
 onready var coin = $Coin
 onready var coincol = $CollisionPolygon2D
 onready var coinlight = $Coin/Area2D/AnimatedSprite/Light2D
-onready var cdis = 0
+var coins = 0
 
 func _process(delta):
-	if cdis > 0:
+	if coins > 0:
 		$Area2D/CollisionShape2D.disabled = true
 		$CollisionPolygon2D.disabled = true
 	else:
@@ -19,20 +19,7 @@ func _process(delta):
 func _on_Area2D_body_entered(body):
 	if body.get("TYPE") == ("Player"):
 		emit_signal("coin_collected")
-		cdis = cdis + 1
-		$Coin.play()
-		$Area2D/AnimationPlayer.set_current_animation("Collect")
-		coin.visible = false
-		coincol = false
-	else:
-		$Area2D/AnimationPlayer.set_current_animation("Idle")
-		coincol = true
-		coin.visible = true
-		coinlight = true
-		
-	if body.get("TYPE") == ("Box"):
-		emit_signal("coin_collected")
-		cdis = cdis + 1
+		coins = coins + 1
 		$Coin.play()
 		$Area2D/AnimationPlayer.set_current_animation("Collect")
 		coin.visible = false
@@ -45,7 +32,20 @@ func _on_Area2D_body_entered(body):
 		
 	if body.get("TYPE") == ("Fan"):
 		emit_signal("coin_collected")
-		cdis = cdis + 1
+		coins = coins + 1
+		$Coin.play()
+		$Area2D/AnimationPlayer.set_current_animation("Collect")
+		coin.visible = false
+		coincol = false
+	else:
+		$Area2D/AnimationPlayer.set_current_animation("Idle")
+		coincol = true
+		coin.visible = true
+		coinlight = true
+		
+	if body.get("TYPE") == ("Box"):
+		emit_signal("coin_collected")
+		coins = coins + 1
 		$Coin.play()
 		$Area2D/AnimationPlayer.set_current_animation("Collect")
 		coin.visible = false

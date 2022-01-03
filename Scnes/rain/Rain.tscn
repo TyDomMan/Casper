@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Sounds/Dark_Rainy_Night(ambience).ogg" type="AudioStream" id=1]
+[ext_resource path="res://Scnes/rain/H1xxcuuOjVLR.128.mp3" type="AudioStream" id=2]
+[ext_resource path="res://Scnes/rain/Rain.gd" type="Script" id=3]
+
+[node name="Rain" type="AudioStreamPlayer"]
+stream = ExtResource( 1 )
+volume_db = -34.084
+autoplay = true
+mix_target = 1
+script = ExtResource( 3 )
+
+[node name="RainMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -27.092

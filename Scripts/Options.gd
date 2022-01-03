@@ -38,11 +38,11 @@ func handle_selection(_current_selection):
 	elif _current_selection == 1:
 		_on_Vsync_pressed()
 	elif _current_selection == 2:
-		get_tree().quit()
+		return
 	elif _current_selection == 3:
-		get_tree().quit()
+		return
 	elif _current_selection == 4:
-		get_tree().quit()
+		return
 	elif _current_selection == 5:
 		get_tree().change_scene("res://Scnes/Interface/MainMenu.tscn")
 	pass

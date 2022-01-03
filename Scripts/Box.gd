@@ -6,6 +6,10 @@ const MAX_SPEED = 55
 const MAXY_SPEED = 350
 const JUMP_HEIGHT = -75
 
+onready var lerping = true
+onready var possess_areaBox : Area2D = $Area2D
+onready var BoxUI  = get_node("/root/Interface/Control/PossesInterface/Box")
+
 var motion = Vector2()
 var CanJumpNoGround = true
 var jumpWasPressed = false
@@ -17,7 +21,6 @@ const TYPE = 'Box'
 onready var active = false
 #Movement System
 func _physics_process(delta):
-	
 	var PlayerPos = position
 	motion.y += GRAVITY
 	var friction = false
@@ -25,7 +28,6 @@ func _physics_process(delta):
 	
 	#Going Left and Right and Idle
 	if active == true:
-		print(motion.y)
 		$Sprite.visible = true
 		$CollisionShape2D.disabled = false
 		$Light2D3.enabled = true
@@ -78,3 +80,14 @@ func rememberJumpTime():
 	yield(get_tree().create_timer(.1), "timeout")
 	jumpWasPressed = false
 	pass
+
+
+func _on_Area2D_body_entered(body):
+	if body.get("TYPE") == ("Player"):
+		BoxUI.visible = true
+	pass # Replace with function body.
+
+func _on_Area2D_body_exited(body):
+	if body.get("TYPE") == ("Player"):
+		BoxUI.visible = false
+	pass # Replace with function body.

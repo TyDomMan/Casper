@@ -1,0 +1,45 @@
+{
+	"events": [
+		{
+			"character": "character-1640113200.json",
+			"event_id": "dialogic_001",
+			"portrait": "(Don't change)",
+			"text": "Welcome to the Overworld Casper"
+		},
+		{
+			"character": "character-1640113200.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "You've just returned from Hell"
+		},
+		{
+			"character": "character-1640113200.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Try to collect the souls at the end of each area"
+		},
+		{
+			"character": "character-1640113200.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "These first five levels will give you an idea of whats to come"
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Use the (W A S D) keys to move and press W twice to double jump"
+		},
+		{
+			"character": "character-1640113200.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Hopefully you'll get your body back ![wave amp=10 freq=30]   Caaaawww [/wave]"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.3",
+		"file": "timeline-1640205326.json",
+		"name": "Timeline1"
+	}
+}

@@ -11,6 +11,9 @@ const WALLJUMP_HEIGHT = -300
 const GLIDFALLY_SPEED = 40
 const GLIDFALLX_SPEED = 80
 
+onready var lerping = false
+onready var FanUI  = get_node("/root/Interface/Control/PossesInterface/Fan")
+
 var motion = Vector2()
 var CanJumpNoGround = true
 var jumpWasPressed = false
@@ -22,13 +25,13 @@ var maxjumps = 1
 onready var active = false
 #Movement System
 func _physics_process(delta):
-	
 	var PlayerPos = position
 	var friction = false
 	Engine.set_target_fps(Engine.get_iterations_per_second())
 	
 	#Going Left and Right and Idle
 	if active == true:
+		get_node("/root/Globals").Fanactive = true
 		motion.y += GRAVITY
 		$Sprite.visible = true
 		$CollisionShape2D.disabled = false
@@ -54,7 +57,7 @@ func _physics_process(delta):
 		#Jumping system
 		if Input.is_action_just_pressed("ui_up"):
 			jumpWasPressed = true
-			$PlayerJump.play()
+#			$PlayerJump.play()
 			rememberJumpTime()
 			if CanJumpNoGround == true:
 				motion.y = JUMP_HEIGHT
@@ -82,24 +85,24 @@ func _physics_process(delta):
 				
 		#Spinning
 		if motion.y != 0 || motion.y == 0:
-			if Input.is_action_pressed("ui_accept"):
+			if Input.is_action_pressed("ui_up"):
 				motion.y -= GRAVITY 
 				motion.y = max( -ACCELERATION * 2, -MAXY_SPEED)
 				$Sprite.play("Spin")
 				$PlayerJump.stop()
 				$Spin.play()
 	elif active == false:
-		
+		get_node("/root/Globals").Fanactive = false
 		motion = move_and_slide(motion, Vector2.UP/1.5)
 		move_and_slide(motion,UP)
-		motion.y = MAXY_SPEED
+		motion.y -= -GRAVITY
 		motion.x = lerp(motion.x, 0, 0.3)
 		$Sprite.play("Idle")
 		$Spin.stop()
 		$Light2D.enabled = false
-				
 	pass
 	pass
+	
 
 #Creates CoyoteTime From youtube
 func coyoteTime():
@@ -112,3 +115,14 @@ func rememberJumpTime():
 	jumpWasPressed = false
 	pass
 
+
+
+func _on_Area2D_body_entered(body):
+	if body.get("TYPE") == ("Player"):
+		FanUI.visible = true
+	pass # Replace with function body.
+
+func _on_Area2D_body_exited(body):
+	if body.get("TYPE") == ("Player"):
+		FanUI.visible = false
+	pass # Replace with function body.

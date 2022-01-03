@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/H1xxcuuOjVLR.128.mp3-0b325daff529cd647432edb3d99b91df.mp3str"
+
+[deps]
+
+source_file="res://Scnes/rain/H1xxcuuOjVLR.128.mp3"
+dest_files=[ "res://.import/H1xxcuuOjVLR.128.mp3-0b325daff529cd647432edb3d99b91df.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

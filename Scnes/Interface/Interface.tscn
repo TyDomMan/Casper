@@ -1,37 +1,114 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Fonts/16bfZX.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://Scnes/Interface/KeyScene.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Tiles/Coin/Coin-1.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Interface.gd" type="Script" id=3]
+[ext_resource path="res://Tiles/Objects/Box.png" type="Texture" id=4]
+[ext_resource path="res://Tiles/Fan/Fan_Side-1.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 1 )
 
-[node name="Control" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 1 )
+
+[node name="Interface" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
 margin_left = 385.887
 margin_top = 7.825
-margin_right = 494.439
+margin_right = 495.887
 margin_bottom = 18.825
+rect_scale = Vector2( 0.768, 1 )
+mouse_filter = 2
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control/HBoxContainer"]
+margin_right = 110.0
+margin_bottom = 11.0
+custom_fonts/font = SubResource( 1 )
+text = "Press R to Restart"
+align = 1
+valign = 2
+
+[node name="PossesInterface" type="HBoxContainer" parent="Control"]
+margin_top = 7.0
+margin_right = 56.0
+margin_bottom = 13.0
+rect_scale = Vector2( 0.768, 1 )
+mouse_filter = 2
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control/PossesInterface"]
+margin_left = 11.0
+margin_right = 56.0
+margin_bottom = 11.0
+custom_fonts/font = SubResource( 1 )
+text = "Posses:"
+align = 1
+valign = 2
+
+[node name="Box" type="Sprite" parent="Control/PossesInterface"]
+modulate = Color( 1.5, 1.5, 1.5, 1 )
+position = Vector2( 74.2187, 6 )
+scale = Vector2( 0.610352, 0.46875 )
+texture = ExtResource( 4 )
+
+[node name="Fan" type="Sprite" parent="Control/PossesInterface"]
+modulate = Color( 1.5, 1.5, 1.5, 1 )
+position = Vector2( 74.2188, 6 )
+scale = Vector2( 1.13932, 0.875 )
+texture = ExtResource( 5 )
+
+[node name="CoinCollector" type="HBoxContainer" parent="Control"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 371.376
+margin_top = 23.247
+margin_right = 448.415
+margin_bottom = 34.247
 rect_scale = Vector2( 0.768, 1 )
 alignment = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="HBoxContainer"]
-margin_right = 108.0
+[node name="Coins" type="Label" parent="Control/CoinCollector"]
+margin_left = 61.0
+margin_right = 77.0
 margin_bottom = 11.0
-custom_fonts/font = SubResource( 1 )
-text = "Press R to restart"
+custom_fonts/font = SubResource( 2 )
+text = "##"
+valign = 1
+
+[node name="Sprite" type="Sprite" parent="Control/CoinCollector/Coins"]
+position = Vector2( -20.564, 6.3 )
+scale = Vector2( 1.0769, 0.862196 )
+texture = ExtResource( 2 )
+
+[node name="X" type="Label" parent="Control/CoinCollector/Coins"]
+margin_left = -11.0
+margin_right = -4.0
+margin_bottom = 11.0
+custom_colors/font_color = Color( 1, 0.862745, 0.156863, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "X"
 align = 2
 valign = 2
-
-[node name="HBoxContainer2" parent="." instance=ExtResource( 2 )]
-visible = false
-margin_right = 8.96
+__meta__ = {
+"_edit_use_anchors_": false
+}

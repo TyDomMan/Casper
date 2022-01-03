@@ -1,148 +1,331 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Text.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Fonts/16bfZX.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Scripts/MainMenu.gd" type="Script" id=3]
+[ext_resource path="res://Theme/Default.tres" type="Theme" id=4]
+[ext_resource path="res://Tiles/TreePara/Trees_bitch-5.png" type="Texture" id=5]
+[ext_resource path="res://Tiles/TreePara/Trees_bitch-4.png" type="Texture" id=6]
+[ext_resource path="res://Tiles/TreePara/Trees_bitch-2.png" type="Texture" id=7]
+[ext_resource path="res://Tiles/TreePara/Trees_bitch-3.png" type="Texture" id=8]
+[ext_resource path="res://Tiles/TreePara/Trees_bitch-1.png" type="Texture" id=9]
+[ext_resource path="res://Tiles/Objects/leef.png" type="Texture" id=10]
+[ext_resource path="res://Sounds/Menu Selection Click.wav" type="AudioStream" id=11]
+
+[sub_resource type="Animation" id=6]
+resource_name = "Fadein"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("CenterContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CenterContainer3:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
 font_data = ExtResource( 2 )
 
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0.573643, 0.992248, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0.599088, 1, 1, 1, 0.384314 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 4 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+emission_shape = 1
+emission_sphere_radius = 20.0
+flag_disable_z = true
+gravity = Vector3( 0, 20, 0 )
+initial_velocity = 100.0
+angular_velocity = 400.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 300.0
+scale_random = 0.2
+color_ramp = SubResource( 3 )
+
 [node name="MainMenu" type="MarginContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="StartMenu" type="CenterContainer" parent="."]
 margin_right = 480.0
 margin_bottom = 270.0
-color = Color( 0.290196, 0.521569, 0.505882, 1 )
+mouse_filter = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
-margin_right = 480.0
-margin_bottom = 270.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="StartMenu"]
 margin_left = 122.0
-margin_top = 52.0
+margin_top = 27.0
 margin_right = 358.0
-margin_bottom = 217.0
+margin_bottom = 242.0
+mouse_filter = 2
 custom_constants/separation = 17
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="StartMenu/VBoxContainer"]
 margin_right = 236.0
 margin_bottom = 74.0
+mouse_filter = 2
 custom_constants/separation = -14
 
-[node name="CenterContainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="StartMenu/VBoxContainer/VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
 margin_right = 236.0
 margin_bottom = 44.0
 
-[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer/CenterContainer"]
+[node name="Label" type="Label" parent="StartMenu/VBoxContainer/VBoxContainer/CenterContainer"]
 margin_left = 18.0
 margin_right = 218.0
 margin_bottom = 44.0
-custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color_shadow = Color( 0.270588, 0.270588, 0.270588, 1 )
+custom_fonts/font = ExtResource( 1 )
 text = "Casper's"
 align = 1
 
-[node name="CenterContainer3" type="CenterContainer" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="CenterContainer3" type="CenterContainer" parent="StartMenu/VBoxContainer/VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
 margin_top = 30.0
 margin_right = 236.0
 margin_bottom = 74.0
 
-[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer/CenterContainer3"]
+[node name="Label" type="Label" parent="StartMenu/VBoxContainer/VBoxContainer/CenterContainer3"]
 margin_right = 236.0
 margin_bottom = 44.0
-custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color_shadow = Color( 0.270588, 0.270588, 0.270588, 1 )
+custom_fonts/font = ExtResource( 1 )
 text = "Adventure"
 align = 1
 
-[node name="CenterContainer2" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StartMenu/VBoxContainer/VBoxContainer"]
+anims/Fadein = SubResource( 6 )
+
+[node name="CenterContainer2" type="CenterContainer" parent="StartMenu/VBoxContainer"]
 margin_top = 91.0
 margin_right = 236.0
-margin_bottom = 165.0
+margin_bottom = 215.0
+mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer2"]
-margin_left = 65.0
-margin_right = 170.0
-margin_bottom = 74.0
+[node name="VBoxContainer" type="VBoxContainer" parent="StartMenu/VBoxContainer/CenterContainer2"]
+margin_left = 64.0
+margin_right = 172.0
+margin_bottom = 124.0
+mouse_filter = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer"]
-margin_right = 105.0
-margin_bottom = 22.0
+[node name="CenterContainer" type="CenterContainer" parent="StartMenu/VBoxContainer/CenterContainer2/VBoxContainer"]
+margin_right = 108.0
+margin_bottom = 28.0
+mouse_filter = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer"]
-margin_right = 105.0
-margin_bottom = 22.0
+[node name="HBoxContainer" type="HBoxContainer" parent="StartMenu/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer"]
+margin_left = 1.0
+margin_right = 106.0
+margin_bottom = 28.0
+mouse_filter = 2
 
-[node name="Selector" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer/HBoxContainer"]
+[node name="Selector" type="Label" parent="StartMenu/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer/HBoxContainer"]
+margin_top = 3.0
 margin_right = 12.0
-margin_bottom = 22.0
-custom_fonts/font = SubResource( 1 )
+margin_bottom = 25.0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
 text = ">"
 
-[node name="OptionName" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer/HBoxContainer"]
+[node name="OptionName" type="Button" parent="StartMenu/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer/HBoxContainer"]
 margin_left = 16.0
 margin_right = 105.0
-margin_bottom = 22.0
+margin_bottom = 28.0
 rect_min_size = Vector2( 89, 0 )
+theme = ExtResource( 4 )
 custom_fonts/font = SubResource( 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "Start"
 
-[node name="CenterContainer2" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer"]
-margin_top = 26.0
-margin_right = 105.0
-margin_bottom = 48.0
+[node name="CenterContainer4" type="CenterContainer" parent="StartMenu/VBoxContainer/CenterContainer2/VBoxContainer"]
+margin_top = 32.0
+margin_right = 108.0
+margin_bottom = 60.0
+mouse_filter = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="StartMenu/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer4"]
 margin_left = 1.0
-margin_right = 103.0
-margin_bottom = 22.0
+margin_right = 106.0
+margin_bottom = 28.0
+mouse_filter = 2
 
-[node name="Selector" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer2/HBoxContainer"]
+[node name="Selector" type="Label" parent="StartMenu/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer4/HBoxContainer"]
+margin_top = 3.0
 margin_right = 12.0
-margin_bottom = 22.0
-custom_fonts/font = SubResource( 1 )
+margin_bottom = 25.0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
 text = ">"
 
-[node name="OptionName" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer2/HBoxContainer"]
+[node name="OptionName" type="Button" parent="StartMenu/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer4/HBoxContainer"]
 margin_left = 16.0
-margin_right = 102.0
-margin_bottom = 22.0
+margin_right = 105.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 89, 0 )
+theme = ExtResource( 4 )
 custom_fonts/font = SubResource( 1 )
+text = "Levels"
+
+[node name="CenterContainer2" type="CenterContainer" parent="StartMenu/VBoxContainer/CenterContainer2/VBoxContainer"]
+margin_top = 64.0
+margin_right = 108.0
+margin_bottom = 92.0
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="StartMenu/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer2"]
+margin_right = 108.0
+margin_bottom = 28.0
+mouse_filter = 2
+
+[node name="Selector" type="Label" parent="StartMenu/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer2/HBoxContainer"]
+margin_top = 3.0
+margin_right = 12.0
+margin_bottom = 25.0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = ">"
+
+[node name="OptionName" type="Button" parent="StartMenu/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer2/HBoxContainer"]
+margin_left = 16.0
+margin_right = 108.0
+margin_bottom = 28.0
+theme = ExtResource( 4 )
+custom_fonts/font = SubResource( 1 )
 text = "Options"
 
-[node name="CenterContainer3" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer"]
-margin_top = 52.0
-margin_right = 105.0
-margin_bottom = 74.0
+[node name="CenterContainer3" type="CenterContainer" parent="StartMenu/VBoxContainer/CenterContainer2/VBoxContainer"]
+margin_top = 96.0
+margin_right = 108.0
+margin_bottom = 124.0
+mouse_filter = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer3"]
-margin_right = 105.0
-margin_bottom = 22.0
+[node name="HBoxContainer" type="HBoxContainer" parent="StartMenu/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer3"]
+margin_left = 1.0
+margin_right = 106.0
+margin_bottom = 28.0
+mouse_filter = 2
 
-[node name="Selector" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer3/HBoxContainer"]
+[node name="Selector" type="Label" parent="StartMenu/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer3/HBoxContainer"]
+margin_top = 3.0
 margin_right = 12.0
-margin_bottom = 22.0
-custom_fonts/font = SubResource( 1 )
+margin_bottom = 25.0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
 text = ">"
 
-[node name="OptionName" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer3/HBoxContainer"]
+[node name="OptionName" type="Button" parent="StartMenu/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer3/HBoxContainer"]
 margin_left = 16.0
 margin_right = 105.0
-margin_bottom = 22.0
+margin_bottom = 28.0
 rect_min_size = Vector2( 89, 0 )
+theme = ExtResource( 4 )
 custom_fonts/font = SubResource( 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "Exit"
+
+[node name="Background" type="CenterContainer" parent="."]
+margin_right = 480.0
+margin_bottom = 270.0
+mouse_filter = 2
+
+[node name="Background" type="Node" parent="Background"]
+
+[node name="Sprite" type="Sprite" parent="Background/Background"]
+modulate = Color( 0.345098, 0.345098, 0.345098, 1 )
+position = Vector2( -4, -51 )
+z_index = -2
+texture = ExtResource( 9 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 580.701, 360 )
+
+[node name="Sprite2" type="Sprite" parent="Background/Background"]
+modulate = Color( 0.345098, 0.345098, 0.345098, 1 )
+position = Vector2( -4, -51 )
+z_index = -2
+texture = ExtResource( 7 )
+centered = false
+region_enabled = true
+region_rect = Rect2( -0.0216064, 0.171227, 533.122, 363.348 )
+
+[node name="Sprite3" type="Sprite" parent="Background/Background"]
+modulate = Color( 0.345098, 0.345098, 0.345098, 1 )
+position = Vector2( -4, -51 )
+z_index = -2
+texture = ExtResource( 8 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 556.901, 360 )
+
+[node name="Sprite4" type="Sprite" parent="Background/Background"]
+modulate = Color( 0.345098, 0.345098, 0.345098, 1 )
+position = Vector2( -4, -51 )
+z_index = -2
+texture = ExtResource( 6 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 599.741, 360 )
+
+[node name="Sprite5" type="Sprite" parent="Background/Background"]
+modulate = Color( 0.345098, 0.345098, 0.345098, 1 )
+position = Vector2( -4, -51 )
+z_index = -2
+texture = ExtResource( 5 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 581, 360 )
+
+[node name="leaves" type="Particles2D" parent="Background/Background"]
+position = Vector2( 22, 124 )
+z_index = -1
+amount = 6
+lifetime = 5.0
+process_material = SubResource( 5 )
+texture = ExtResource( 10 )
+
+[node name="leaves2" type="Particles2D" parent="Background/Background"]
+position = Vector2( 356, 127 )
+z_index = -1
+amount = 6
+lifetime = 5.0
+process_material = SubResource( 5 )
+texture = ExtResource( 10 )
+
+[node name="Saves" type="CenterContainer" parent="."]
+margin_right = 480.0
+margin_bottom = 270.0
+mouse_filter = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = -8.739
+
+[connection signal="pressed" from="StartMenu/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer/HBoxContainer/OptionName" to="." method="_on_OptionName_pressed"]
+[connection signal="pressed" from="StartMenu/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer4/HBoxContainer/OptionName" to="." method="_on_Load_pressed"]
+[connection signal="pressed" from="StartMenu/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer3/HBoxContainer/OptionName" to="." method="_on_Exit_pressed"]
