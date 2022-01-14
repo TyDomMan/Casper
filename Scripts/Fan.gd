@@ -13,6 +13,7 @@ const GLIDFALLX_SPEED = 80
 
 onready var lerping = false
 onready var FanUI  = get_node("/root/Interface/Control/PossesInterface/Fan")
+onready var Wind = $WindFan
 
 var motion = Vector2()
 var CanJumpNoGround = true
@@ -53,20 +54,8 @@ func _physics_process(delta):
 			if motion.y > 0:
 				$Sprite.play("Idle")
 				$Spin.stop()
+				Wind.emitting = false
 			friction = true
-		#Jumping system
-		if Input.is_action_just_pressed("ui_up"):
-			jumpWasPressed = true
-#			$PlayerJump.play()
-			rememberJumpTime()
-			if CanJumpNoGround == true:
-				motion.y = JUMP_HEIGHT
-				dubjumps = maxjumps
-			if friction == true:
-				motion.x = lerp(motion.x, 0, 0.1)
-		else:
-			if friction == true:
-				motion.x = lerp(motion.x, 0, 0.1)
 		motion = move_and_slide(motion, UP)
 		
 		#Max fall speed
@@ -86,12 +75,16 @@ func _physics_process(delta):
 		#Spinning
 		if motion.y != 0 || motion.y == 0:
 			if Input.is_action_pressed("ui_up"):
+				Wind.emitting = true
 				motion.y -= GRAVITY 
 				motion.y = max( -ACCELERATION * 2, -MAXY_SPEED)
 				$Sprite.play("Spin")
 				$PlayerJump.stop()
 				$Spin.play()
+		else:
+			Wind.emitting = false
 	elif active == false:
+		Wind.emitting = false
 		get_node("/root/Globals").Fanactive = false
 		motion = move_and_slide(motion, Vector2.UP/1.5)
 		move_and_slide(motion,UP)

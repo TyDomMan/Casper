@@ -14,10 +14,10 @@ func _ready():
 func _process(delta):
 	if $Background.visible == true:
 		get_tree().paused = true
-		if Input.is_action_just_pressed("ui_down") and current1_selection < 2:
+		if Input.is_action_just_pressed("ui_page_down") and current1_selection < 2:
 			current1_selection += 1
 			set_current_selection1(current1_selection)
-		elif Input.is_action_just_pressed("ui_up") and current1_selection > 0:
+		elif Input.is_action_just_pressed("ui_page_up") and current1_selection > 0:
 			current1_selection -= 1
 			set_current_selection1(current1_selection)
 		elif Input.is_action_just_pressed("ui_accept"):

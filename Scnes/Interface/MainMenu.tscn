@@ -249,6 +249,15 @@ theme = ExtResource( 4 )
 custom_fonts/font = SubResource( 1 )
 text = "Exit"
 
+[node name="Saves" type="CenterContainer" parent="."]
+margin_right = 480.0
+margin_bottom = 270.0
+mouse_filter = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = -8.739
+
 [node name="Background" type="CenterContainer" parent="."]
 margin_right = 480.0
 margin_bottom = 270.0
@@ -316,15 +325,6 @@ amount = 6
 lifetime = 5.0
 process_material = SubResource( 5 )
 texture = ExtResource( 10 )
-
-[node name="Saves" type="CenterContainer" parent="."]
-margin_right = 480.0
-margin_bottom = 270.0
-mouse_filter = 2
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 11 )
-volume_db = -8.739
 
 [connection signal="pressed" from="StartMenu/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer/HBoxContainer/OptionName" to="." method="_on_OptionName_pressed"]
 [connection signal="pressed" from="StartMenu/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer4/HBoxContainer/OptionName" to="." method="_on_Load_pressed"]

@@ -231,15 +231,20 @@ __meta__ = {
 }
 
 [node name="ChainContainer" parent="Chains" instance=ExtResource( 12 )]
+position = Vector2( -8, 22.586 )
+scale = Vector2( 0.8, 0.8 )
 
 [node name="ChainContainer2" parent="Chains" instance=ExtResource( 12 )]
-position = Vector2( 84, 26 )
+position = Vector2( 84, 22.586 )
+scale = Vector2( 0.8, 0.8 )
 
 [node name="ChainContainer3" parent="Chains" instance=ExtResource( 12 )]
-position = Vector2( 194, 26 )
+position = Vector2( 194, 22.586 )
+scale = Vector2( 0.8, 0.8 )
 
 [node name="ChainContainer4" parent="Chains" instance=ExtResource( 12 )]
-position = Vector2( 287, 26 )
+position = Vector2( 287, 22.586 )
+scale = Vector2( 0.8, 0.8 )
 
 [connection signal="spikehit" from="Hurting/Spikes" to="Player" method="_on_Spikes_spikehit"]
 [connection signal="spikehit" from="Hurting/Spikes2" to="Player" method="_on_Spikes_spikehit"]

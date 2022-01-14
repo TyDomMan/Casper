@@ -22,9 +22,12 @@ onready var Bars = get_parent().get_parent().get_node("/root/CutsceneBars/Center
 onready var UI  = get_node("/root/Interface/Control")
 onready var lerping = true
 onready var Death = false
+onready var Fireball = false
+onready var Fireproj = $FireProjectile
 
 #Movement System
 func _physics_process(delta):
+	Fireproj.visible = false
 	var PlayerPos = position
 	var friction = false
 	
@@ -40,30 +43,40 @@ func _physics_process(delta):
 		$Sprite.visible = true
 		$CollisionShape2D.disabled = false
 		$Light2D.enabled = true
-		if Input.is_action_pressed("ui_right"):
+		if Input.is_action_pressed("ui_right") && Fireball == false:
 			motion.x = min(motion.x + ACCELERATION, MAX_SPEED)
 			$Sprite.flip_h = false
 			$CollisionShape2D.position.x = 1
+			if Input.is_action_pressed("Sprint"):
+				$WindSprint.emitting = true
+				$WindSprint.rotation_degrees = -160
+				$WindSprint.position.x = -1
+				motion.x = min(motion.x + ACCELERATION, MAX_SPEED * 2)
 			if motion.x > 0:
 				$Sprite.play("Walk")
 				$Sprite/Particles2D.emitting = true
+				$Sprite/Particles2D.global_rotation_degrees = -160
 			if motion.x <= 30:
 				$Sprite.play("Idle")
 				$Sprite/Particles2D.emitting = false
 				$Sprite/Particles2D.position.x = -5.271
-				$Sprite/Particles2D.scale.x = 0.56
 			if motion.y == 10:
 				$Sprite/Particles2D.emitting = true
 				$Sprite/Particles2D.global_rotation_degrees = -160
-		elif Input.is_action_pressed("ui_left"):
+		elif Input.is_action_pressed("ui_left") && Fireball == false:
 			motion.x = max(motion.x - ACCELERATION, -MAX_SPEED)
+			if Input.is_action_pressed("Sprint"):
+				$WindSprint.emitting = true
+				$WindSprint.rotation_degrees = -360
+				$WindSprint.position.x = 4
+				motion.x = max(motion.x - ACCELERATION, -MAX_SPEED * 2)
 			$Sprite.flip_h = true
 			if motion.x < 0:
 				$Sprite.play("Walk")
 				$CollisionShape2D.position.x = 2
 				$Sprite/Particles2D.emitting = true
 				$Sprite/Particles2D.position.x = 7
-				$Sprite/Particles2D.scale.x = -0.56
+				$Sprite/Particles2D.global_rotation_degrees = -360
 			if motion.x >= -30:
 				$Sprite.play("Idle")
 				$Sprite/Particles2D.emitting = false
@@ -71,27 +84,30 @@ func _physics_process(delta):
 				$Sprite/Particles2D.emitting = true
 				$Sprite/Particles2D.global_rotation_degrees = 340
 		else:
+			$WindSprint.emitting = false
 			motion.x = lerp(motion.x, 0, 0.3)
-			$Sprite.play("Idle")
 			friction = true
 			$Sprite/Particles2D.emitting = false
-			$CollisionShape2D.position.x = 1
-			
-			
+			if Fireball == false:
+				$Sprite.play("Idle")
+		#Fireball system
+		if Input.is_action_just_pressed("fireattack"):
+			Fireball = true
+			Fireproj.visible = true
+			$Sprite.play("Attack")
+		
 		#Jumping system
 		if is_on_floor():
 			CanJumpNoGround = true
 			if jumpWasPressed == true:
 				$Sprite/AudioController/PlayerJump.play()
 				motion.y = JUMP_HEIGHT
-		
 		if !is_on_floor():
 			coyoteTime()
 			motion.y += GRAVITY
-			if motion.y > 0:
+			if motion.y > 0  && Fireball == false:
 				$Sprite.play("fall")
-				
-		if Input.is_action_just_pressed("ui_up"):
+		if Input.is_action_just_pressed("ui_up") && Fireball == false:
 			$Sprite/Particles2D.emitting = false
 			jumpWasPressed = true
 			rememberJumpTime()
@@ -104,15 +120,14 @@ func _physics_process(delta):
 				$Sprite/AudioController/PlayerJump.play()
 				dubjumps = dubjumps - 1
 			if friction == true:
-				motion.x = lerp(motion.x, 0, 0.1)
+				motion.x = lerp(motion.x, 0, 0.3)
 		else:
-			if motion.y < 0: 
+			if motion.y < 0 && Fireball == false: 
 				$Sprite.play("Jump")
 				$Sprite/Particles2D.emitting = false
 			if friction == true:
-				motion.x = lerp(motion.x, 0, 0.1)
+				motion.x = lerp(motion.x, 0, 0.3)
 		motion = move_and_slide(motion, UP)
-				
 		#Max fall speed
 		if motion.y > MAXY_SPEED:
 			motion.y = MAXY_SPEED
@@ -134,28 +149,23 @@ func _physics_process(delta):
 func coyoteTime():
 	yield(get_tree().create_timer(.1), "timeout")
 	CanJumpNoGround = false
-
 func rememberJumpTime():
 	yield(get_tree().create_timer(.1), "timeout")
 	jumpWasPressed = false
-
-
 func _on_Spikes_spikehit():
 	Death = true
 	active = false
 	Globals.camera.shake(500,.2,500)
-
-
 func _on_Crow_talking():
 	talking = true
 	Bars.play("Bars")
-	
 func _on_Crow_nottalking():
 	talking = false
 	Bars.play_backwards("Bars")
-
-
 func _on_Coin_coin_collected():
 	UI.coins = UI.coins + 1
 	pass # Replace with function body.
 
+func _on_Sprite_animation_finished():
+	if $Sprite.animation == "Attack":
+		Fireball = false

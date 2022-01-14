@@ -37,6 +37,10 @@ func _process(delta):
 		showUI()
 	else:
 		showUI()
+	
+	if FanPoss.visible == true && BoxPoss.visible == true:
+		BoxPoss.visible = true
+		FanPoss.visible = false
 	pass
 
 func _input(event):

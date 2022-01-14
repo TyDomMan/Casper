@@ -70,7 +70,7 @@ func posessnolerp(host : Node2D):
 	camera.set_owner(host)
 	
 	#setting location
-	Player.global_position = current_host.global_position + Vector2(4,0)
+	Player.global_position = current_host.global_position + Vector2(0,-16)
 	
 	current_host.active = false
 	host.active = true

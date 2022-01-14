@@ -18,11 +18,11 @@ func _ready():
 	pass
 
 func _process(delta):
-	if Input.is_action_just_pressed("ui_down") and current_selection < 3:
+	if Input.is_action_just_pressed("ui_page_down") and current_selection < 3:
 		current_selection += 1
 		set_current_selection(current_selection)
 		Sound.play()
-	elif Input.is_action_just_pressed("ui_up") and current_selection > 0:
+	elif Input.is_action_just_pressed("ui_page_up") and current_selection > 0:
 		current_selection -= 1
 		set_current_selection(current_selection)
 		Sound.play()
